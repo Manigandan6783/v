@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reveal Text Inlay</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .type-box-container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .type-box {
+            width: 300px;
+            height: 100px;
+            margin: 0 auto;
+            position: relative;
+            background: #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hidden-text {
+            font-size: 16px;
+            color: #007bff;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .hidden-text a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .hidden-text a:hover {
+            text-decoration: underline;
+        }
+
+        .reveal-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .reveal-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Reveal animation */
+        .hidden-text.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="type-box-container">
+        <div class="type-box">
+            <div id="hiddenText" class="hidden-text">
+                <a href="https://meet.google.com/qjq-stua-awc" target="_blank">https://meet.google.com/qjq-stua-awc</a>
+            </div>
+        </div>
+        <button id="revealBtn" class="reveal-button">Reveal Text</button>
+    </div>
+
+    <script>
+        document.getElementById('revealBtn').addEventListener('click', function () {
+            const hiddenText = document.getElementById('hiddenText');
+            hiddenText.classList.toggle('reveal');
+        });
+    </script>
+</body>
+</html>
