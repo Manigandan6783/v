@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glassy Transparent Navbar</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:600&display=swap" rel="stylesheet">
+  <style>
+
+    
+    /* CSS Variables */
+    :root {
+      --button-gradient: #D8D9DB 0%, #fff 80%, #FDFDFD 100%;
+      --button-border: #8F9092;
+      --button-text: #606060;
+      --highlight-bottom: 0 4px 3px 1px #00000000;
+      --shadow-bottom: 0 6px 8px #00000000;
+      --shadow-top: 0 -4px 4px #00000000;
+      --highlight-top: 0 -6px 4px #FEFEFE;
+      --shadow-inset: inset 0 0 3px 0 #06060600;
+      --shadow-inset-hover: inset 0 0 3px 3px #CECFD1;
+      --shadow-inset-focus: inset 0 0 10px 0px rgba(0, 0, 250, .6);
+      --shadow-inset-active: inset 0 0 5px 3px #0e0c0c, inset 0 0 30px #aaa;
+      --button-shadow-base:   var(--shadow-top);
+      --button-shadow-default: var(--button-shadow-base), var(--shadow-inset);
+      --button-shadow-hover: var(--button-shadow-base), var(--shadow-inset-hover);
+      --button-shadow-focus: var(--button-shadow-base), var(--shadow-inset-focus);
+    }
+
+    /* General Styles */
+    *,
+    *:before,
+    *:after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Source Sans Pro", sans-serif;
+      background: linear-gradient(to bottom, #f8f8f8, #e0e0e0);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 20px; /* Adjust this to move the navbar slightly down */
+      left: 0;
+      width: 100%;
+      background: var(--background);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0);
+      padding: 10px 40px; /* Adjust padding for better spacing */
+      display: flex;
+      justify-content: center; /* Center the buttons */
+      align-items: center;
+      z-index: 1000; /* Ensure the navbar stays above other content */
+    }
+
+    .navbar button {
+      -webkit-appearance: none;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      outline: none;
+      cursor: pointer;
+      width: 120px;
+      height: 40px;
+      background-image: linear-gradient(to top, var(--button-gradient));
+      border-radius: 20px;
+      border: 0.5px solid var(--button-border);
+      transition: all .2s ease;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--button-text);
+      text-shadow: 0 1px #fff;
+      margin: 0 8px; /* Reduced gap between buttons */
+    }
+
+    .navbar button:hover:not([disabled]) {
+      box-shadow: var();
+      transform: scale(0.975);
+    }
+
+    .navbar button:focus:not(:active) {
+      animation: active .9s alternate infinite;
+      outline: none;
+    }
+
+    .navbar button:active:not([disabled]) {
+      transform: scale(0.95);
+    }
+
+    .navbar button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .navbar button.icon {
+      width: 40px;
+    }
+
+    .navbar button.icon svg {
+      margin-top: 3px;
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Keyframes */
+    @keyframes active {
+      from {
+        box-shadow: var(--button-shadow-focus);
+      }
+      to {
+        box-shadow: var(--button-shadow-hover);
+      }
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* Aurora Background */
+    .aurora {
+      position: relative;
+      height: 740px;
+      width: 100000px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .aurora:before, .aurora:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      border-radius: 100%;
+      opacity: 0.4;
+    }
+
+    .aurora:before {
+      box-shadow: 0 0 35vmax 35vmax #e82c72;
+      animation: hue 10s linear infinite, move1 20s linear infinite;
+    }
+
+    .aurora:after {
+      box-shadow: 0 0 35vmax 35vmax #31c5f4;
+      animation: hue 10s linear infinite, move2 20s linear infinite;
+    }
+
+    @keyframes move1 {
+      0% { top: 0vh; left: 50vw; }
+      25% { left: 0vw; }
+      50% { top: 100vh; }
+      75% { left: 100vw; }
+      100% { top: 0vh; left: 50vw; }
+    }
+
+    @keyframes move2 {
+      0% { top: 50vh; left: 100vw; }
+      25% { top: 100vh; }
+      50% { left: 0vw; }
+      75% { top: 0vh; }
+      100% { top: 50vh; left: 100vw; }
+    }
+
+    #home {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden;
+}
+
+#background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the video covers the entire section */
+    z-index: -1; /* Ensures the video is in the background */
+}
+
+.content {
+    position: absolute;
+    top: 10%; /* Align the content to the top */
+    left: 50%;
+    transform: translateX(-50%); /* Horizontally center the content */
+    text-align: center;
+    color: white;
+    z-index: 1; /* Ensures the content is above the video */
+    padding-top: 20px; /* Optional: Adds some space from the top */
+}
+
+.content p {
+      font-size: 1.0rem;
+      font-family: 'Roboto', sans-serif;
+      color: rgb(218, 206, 206, 0.806);
+      font-weight: 0.01;
+      margin-top: 90px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+      word-spacing: 8px;
+    }
+
+
+    .content h1 {
+    color: rgba(218, 206, 206, 0.806);
+    font-family: 'Roboto', sans-serif;
+    font-size: 11rem;
+    word-spacing: 2px;
+    margin-left: 10px;
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    overflow: hidden;    /* Ensures overflow text is hidden */
+    text-overflow: ellipsis; /* Adds an ellipsis (...) for overflow text if needed */
+}
+
+
+
+
+    /* New Section Below Home */
+    .new-section {
+      background-color: white;
+      height:110vh;
+      width: 100%;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .new-section h1 {
+      color: rgba(15, 15, 15, 0.763);
+      font-size: 9rem;
+      margin-bottom: 0.5rem;
+     
+    }
+
+    
+
+    .new-section h6 {
+      color: rgb(114, 103, 103);
+      font-size: 0.9rem;
+      margin-bottom: 0.7rem;
+     
+    }
+    
+    .new-section p {
+      font-size: 1.0rem;
+      font-family: 'Roboto', sans-serif;
+      color: rgb(15, 15, 15, 0.763);
+      font-weight: 0.01;
+      margin-top: 80px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+      word-spacing: 8px;
+    }
+
+    
+    .new1-section {
+      background-color: white;
+      height:100vh;
+      width: 100%;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .new1-section h1 {
+      color: rgba(15, 15, 15, 0.763);
+      font-size: 9rem;
+      margin-bottom: 0.5rem;
+     
+    }
+    .new1-section h3 {
+      color: rgba(15, 15, 15, 0.763);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+     
+    }
+
+    
+    .new1-section p {
+      font-size: 1.0rem;
+      font-family: 'Roboto', sans-serif;
+      color: rgb(15, 15, 15, 0.763);
+      font-weight: 0.001;
+      margin-top: 80px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+      word-spacing: 8px;
+    }
+ 
+    .new2-section {
+      background-color: white;
+      height:100vh;
+      width: 100%;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .new2-section h1 {
+      color: rgba(15, 15, 15, 0.763);
+      font-size: 9rem;
+      margin-bottom: 0.5rem;
+     
+    }
+    .new2-section h3 {
+      color: rgba(15, 15, 15, 0.763);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+     
+    }
+
+    
+    .new2-section p {
+      font-size: 1.0rem;
+      font-family: 'Roboto', sans-serif;
+      color: rgb(15, 15, 15, 0.763);
+      font-weight: 0.001;
+      margin-top: 30px;
+      margin-bottom: 70px;
+      margin-left: 10px;
+      margin-right: 10px;
+      word-spacing: 8px;
+    }
+
+    .services-section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .services-title {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 40px;
+    }
+
+    .services-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      flex-wrap: nowrap;
+      align-items: flex-start; /* Align items in a single horizontal row */
+      overflow: hidden; /* To prevent wrapping */
+    }
+
+    .new2-section {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .new2-section p {
+      font-size: 1.0rem;
+      font-family: 'Roboto', sans-serif;
+      color: rgb(15, 15, 15, 0.763);
+      font-weight: 0.01;
+      margin-top: 80px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+      word-spacing: 8px;
+    }
+
+    .new3-section {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .services-container2 {
+      position: relative;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /* Photo Frame Styling */
+    .photo-frame {
+      position: absolute;
+      width: 200px;
+      height: 220px;
+      background: #eae4e3e7;
+      border: 5px solid #ccc;
+      border-radius: 45px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      animation: swing 2s infinite ease-in-out;
+      transform-origin: top center;
+      text-align: center;
+    }
+
+    .photo-frame img {
+  width: 68%;
+  height: 60%;
+  object-fit: cover;
+  border-radius: 30px; /* Rounded top corners only */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.7); /* Shadow effect */
+}
+
+
+    .photo-frame p {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    /* Swing Animation */
+    @keyframes swing {
+      0% {
+        transform: rotate(-10deg);
+      }
+      50% {
+        transform: rotate(10deg);
+      }
+      100% {
+        transform: rotate(-10deg);
+      }
+    }
+
+
+    .service-card {
+      background-color: #dcd4d4d1;
+      border-radius:100px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.886);
+      height: 20%;
+      width: 30%;
+      padding: 17px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+
+    .service-card img {
+      max-width: 100%;
+      border-radius: 890px;
+      height: auto;
+      border: 10px solid #e2e2e2; /* Adding a photo frame concept */
+      padding: 5px; /* Adding space around the image */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+     /* Shadow below the image */
+    }
+
+    .service-card {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.886);
+    }
+
+    .service-title {
+      font-size: 1.5rem;
+      color: #333;
+      margin-top: 15px;
+    }
+
+    .service-description {
+      font-size: 1rem;
+      color: #777;
+      margin-top: 10px;
+      text-align: justify;
+    }
+
+    
+
+    @media (max-width: 768px) {
+      .service-card {
+        width: 100%;
+        margin-bottom: 30px;
+        
+      }
+    }
+
+    
+       
+        .founder-photo {
+            position: absolute;
+            margin-top: 15px; /* Adjusted to align the larger circle above the card */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px; /* Increased circle size */
+            height: 160px; /* Increased circle size */
+            border-radius: 100%;
+            border: 6px solid silver;
+            background: linear-gradient(90deg, silver, #f8f8f8, silver);
+            box-shadow: 0 0 20px silver, 0 0 40px rgba(255, 255, 255, 0.3);
+            animation: shine 2s infinite;
+        }
+        .founder-photo1{
+            position: absolute;
+            margin-top: 15px; /* Adjusted to align the larger circle above the card */
+            left: 45%;
+            transform: translateX(-50%);
+            width: 173px; /* Increased circle size */
+            height: 173px; /* Increased circle size */
+            border-radius: 100%;
+            border: 6px solid silver;
+            background: linear-gradient(90deg, silver, #f8f8f8, silver);
+            box-shadow: 0 0 20px silver, 0 0 40px rgba(255, 255, 255, 0.3);
+            animation: shine 2s infinite;
+        }
+        @keyframes shine {
+            0% { box-shadow: 0 0 20px silver, 0 0 40px rgba(255, 255, 255, 0.3); }
+            50% { box-shadow: 0 0 30px white, 0 0 50px rgba(255, 255, 255, 0.5); }
+            100% { box-shadow: 0 0 20px silver, 0 0 40px rgba(255, 255, 255, 0.3); }
+        }
+      
+      .qa-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.3px;
+      background-color: #ffffff;
+    }
+
+    /* Left-side Questions */
+    .qa-left {
+      flex: 1;
+      padding: 10px;
+      max-width: 600px; /* Adjusted width for questions */
+    }
+
+    .question {
+      background-color: rgb(255, 255, 255);
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 45px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .question:hover {
+      transform: scale(1.05);
+    }
+
+    .question-text {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .answer-text {
+      display: none;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    /* Toggle answer visibility */
+    .question.open .answer-text {
+      display: block;
+    }
+
+    /* Right-side Social Media Icons */
+    .qa-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      padding-left: 20px;
+      flex: 0.5;
+    }
+
+    .social-icon img {
+      width: 60px;
+      height: 60px;
+      transition: transform 0.3s ease;
+    }
+
+    .social-icon img:hover {
+      transform: scale(1.5); /* Make the icon enlarge on hover */
+    }
+
+  </style>
+</head>
+<body>
+    <!-- Aurora Background -->
+    <section id="home">
+    <video autoplay muted loop id="background-video">
+        <source src="img/videoplayback (59).mp4" type="video/mp4">
+    </video>
+    <div class="content">
+      <p>"THE PLACE WHERE DREAMS COME REAL WITH OUR TEAMS"</p>
+      <h1>Nilofer 3D SaaS</h1>
+  </div>
+  </section>
+  
+
+
+    <!-- Navbar -->
+    <div class="navbar">
+      <button class="redirect" data-target="home">Home</button>
+      <button class="redirect" data-target="services">Services</button>
+      <button class="redirect" data-target="founder">Founder</button>
+      <button class="redirect" data-target="on-projects">On-projects</button>
+      <button class="redirect" data-target="contact">Contact</button>
+  </div>
+  
+  
+    <!-- New Section Below Home -->
+   
+<section id="services"></section>
+    <div class="new-section">
+        <p>" WE PROUDLY PRESENTS " </p>
+        <h1>Our Services</h1>
+        <br>
+        <br>
+        <div class="services-container">
+            <div class="service-card">
+                <img src="Untitled design (40).png" alt="Service 2">
+                <h3 class="service-title">SaaS Creation's  </h3>
+                <h6>Creating webapp for Companies & business </h6>
+              </div>
+          
+          <div class="service-card">
+            <img src="Untitled design (42).png" alt="Service 2">
+            <h3 class="service-title">Free guide 1:1 on dream  </h3>
+            <h6>helping people to land on dream career</h6>
+          </div>
+    
+          <div class="service-card">
+            <img src="Untitled design (41).png" alt="Service 2">
+            <h3 class="service-title">training - remote career</h3>
+            <h6>Transforming clg grad's to professional  </h6>
+          </div>
+          
+      
+      </div>
+      
+    </div>
+</div>
+
+<section id="founder"></section>
+    <div class="new-section"> 
+    <h1>founder</h1>
+    <a href="https://www.linkedin.com/in/manigandan-saas-buddy-9589202a4/" target="_blank" class="founder-photo-link">
+      <div class="founder-photo" style="background-image: url('Untitled design (43).png'); background-size: cover; background-position: center;"></div>
+  </a>
+  
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <br>
+        <h3>Mr.Manigandan </h3>
+        <p>An 23 YEAR OLD ENTREPRENUER , WHOSE BEHIND THE IDEA OF NILOFER 3D SAAS </p> 
+        
+        
+        </div>
+    </div>
+</div>
+
+<section id="on-projects"></section>
+<div class="new-section">  
+  <h1>On-projects</h1>
+  <div class="services-container2">
+    <!-- Full-Width Curved Rope -->
+    <svg width="100%" height="500" viewBox="0 0 2000 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0 50 Q1000 500 2000 50" stroke="#8B4513" stroke-width="5" fill="none" />
+    </svg>
+
+    <!-- Photo Frames -->
+    <a href="https://otttz.netlify.app" target="_blank" class="photo-frame-link">
+      <div class="photo-frame" style="left: 20%; top: 224px;">
+          <img src="img\Untitled design (44).png" alt="Photo 1">
+          <p>OTT'tz - THEATRE app</p>
+      </div>
+  </a>
+  
+    <div class="photo-frame" style="left: 45%; top: 270px;">
+      <img src="img\Untitled design (45).png" alt="Photo 2">
+      <p>Mentor - GUIDE app</p>
+    </div>
+    <div class="photo-frame" style="left: 70%; top: 210px;">
+      <img src="img\Untitled design (46).png" alt="Photo 3">
+      <p>COMING SOONER</p>
+    </div>
+  </div>
+</div>
+
+<section id="contact"></section>
+<div class="new-section">  
+  <h1>Contacts</h1>
+  <div class="qa-section">
+    <div class="qa-left">
+      <!-- Questions -->
+      <div class="question" id="question1">
+        <p class="question-text">What does Nilofer 3d SaaS actually create ? 
+        <p class="answer-text">- the main focus with Virtual world & stuffs Creation and also on side , Our teams provide freebies with training for clg students  
+          </p>
+      </div>
+      
+      <div class="question" id="question2">
+        <p class="question-text">Does OTT'tz theatre on desk app is free to use ?</p>
+        <p class="answer-text">- yes , it's free for today at present , but soon change to paid  </p>
+      </div>
+      
+      <div class="question" id="question3">
+        <p class="question-text">tell me about the founder @ Nilofer 3d SaaS ?</p>
+        <p class="answer-text">- the founder name " MR. B. Manigandan " , whose initiate an idea 
+          of creating an startup idea dream " Nilofer 3d SaaS"
+          
+          </p3>
+      </div>
+      
+      
+    </div>
+
+    <!-- Right side for Social Media Icons -->
+    <div class="qa-right">
+      <a href="https://x.com/Manigandan52513" target="_blank" class="social-icon">
+          <img src="img/twitter.png" alt="Twitter">
+      </a>
+      <a href="https://www.linkedin.com/company/nilofer-solutions-inc" target="_blank" class="social-icon">
+          <img src="img/twitter (1).png" alt="LinkedIn">
+      </a>
+  </div>
+  
+  </div>
+</div>
+
+<div class="new1-section">  
+  <h1>copyrights</h1>
+  <a href="https://www.linkedin.com/company/nilofer-solutions-inc" target="_blank" class="founder-photo-link">
+    <div class="founder-photo1" style="background-image: url('img/Untitled design (47).png'); background-size: cover; background-position: center;"></div>
+</a>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      
+      <br>
+      <h3>@ NIlofer 3d SaaS </h3>
+      <p>" THE PLACE WHERE DREAMS COMES ALIVE "</p> 
+      
+      
+      </div>
+  </div>
+<script>
+  // Select all buttons with the 'redirect' class
+const redirectButtons = document.querySelectorAll('.redirect');
+
+// Add click event listener to each button
+redirectButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const sectionId = button.getAttribute('data-target'); // Get the target from data-target
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' }); // Scroll smoothly to the section
+        }
+    });
+});
+</script>
+<script>
+  // Select the founder-photo1 element
+const founderPhoto = document.querySelector('.founder-photo1');
+
+// Define the rotation angle
+let rotationAngle = 0;
+
+// Function to rotate the element
+function rotateElement() {
+    rotationAngle += 0.1; // Adjust the increment for speed (smaller is slower)
+    founderPhoto.style.transform = `rotate(${rotationAngle}deg)`;
+    requestAnimationFrame(rotateElement); // Continuously call the function
+}
+
+// Start the rotation
+rotateElement();
+</script>
+
+<script>
+  // Select all service cards
+const serviceCards = document.querySelectorAll('.service-card');
+
+// Add hover effect
+serviceCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        card.style.transition = 'transform 0.1s';
+        card.style.transform = 'translateX(-2px)';
+        setTimeout(() => card.style.transform = 'translateX(2px)', 100);
+        setTimeout(() => card.style.transform = 'translateX(-2px)', 200);
+        setTimeout(() => card.style.transform = 'translateX(0)', 300);
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'none'; // Reset on mouse leave
+    });
+});
+</script>
+
+  <script>
+    // Toggle the answer display when a question is clicked
+    document.querySelectorAll('.question').forEach(question => {
+      question.addEventListener('click', () => {
+        question.classList.toggle('open');
+      });
+    });
+    
+  </script>
+
+
+<script type="text/javascript">
+  WebFont.load({
+    google: {
+      families: ["Roboto:100,regular,900"]
+    }
+  });
+</script>
+</body>
+</html>
+
+
