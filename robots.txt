@@ -1,0 +1,4 @@
+User-agent: * 
+Allow: /public/      # Allow crawlers to index the /public/ directory
+
+Sitemap: https://nilofer3dsaas.netlify.app/sitemap.xml   # Sitemap location
