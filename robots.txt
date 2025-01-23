@@ -1,4 +1,1 @@
-User-agent: *
-Allow: /
 
-Sitemap: https://nilofer3dsaas.netlify.app/atom.xml
