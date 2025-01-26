@@ -1,126 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="mkW015deIapyQRpoqtYz4aQGHfkAWu51UsMV-_E553I" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Glassy Transparent Navbar</title>
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:600&display=swap" rel="stylesheet">
   <style>
 
-    
-    /* CSS Variables */
-    :root {
-      --button-gradient: #D8D9DB 0%, #fff 80%, #FDFDFD 100%;
-      --button-border: #8F9092;
-      --button-text: #606060;
-      --highlight-bottom: 0 4px 3px 1px #00000000;
-      --shadow-bottom: 0 6px 8px #00000000;
-      --shadow-top: 0 -4px 4px #00000000;
-      --highlight-top: 0 -6px 4px #FEFEFE;
-      --shadow-inset: inset 0 0 3px 0 #06060600;
-      --shadow-inset-hover: inset 0 0 3px 3px #CECFD1;
-      --shadow-inset-focus: inset 0 0 10px 0px rgba(0, 0, 250, .6);
-      --shadow-inset-active: inset 0 0 5px 3px #0e0c0c, inset 0 0 30px #aaa;
-      --button-shadow-base:   var(--shadow-top);
-      --button-shadow-default: var(--button-shadow-base), var(--shadow-inset);
-      --button-shadow-hover: var(--button-shadow-base), var(--shadow-inset-hover);
-      --button-shadow-focus: var(--button-shadow-base), var(--shadow-inset-focus);
-    }
+/* CSS Variables */
+:root {
+  --button-gradient: #D8D9DB 0%, #fff 80%, #FDFDFD 100%;
+  --button-border: #8F9092;
+  --button-text: #606060;
+  --highlight-bottom: 0 4px 3px 1px #00000000;
+  --shadow-bottom: 0 6px 8px #00000000;
+  --shadow-top: 0 -4px 4px #00000000;
+  --highlight-top: 0 -6px 4px #FEFEFE;
+  --shadow-inset: inset 0 0 3px 0 #06060600;
+  --shadow-inset-hover: inset 0 0 3px 3px #CECFD1;
+  --shadow-inset-focus: inset 0 0 10px 0px rgba(0, 0, 250, .6);
+  --shadow-inset-active: inset 0 0 5px 3px #0e0c0c, inset 0 0 30px #aaa;
+  --button-shadow-base: var(--shadow-top);
+  --button-shadow-default: var(--button-shadow-base), var(--shadow-inset);
+  --button-shadow-hover: var(--button-shadow-base), var(--shadow-inset-hover);
+  --button-shadow-focus: var(--button-shadow-base), var(--shadow-inset-focus);
+}
 
-    /* General Styles */
-    *,
-    *:before,
-    *:after {
-      box-sizing: border-box;
-    }
+/* General Styles */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: "Source Sans Pro", sans-serif;
-      background: linear-gradient(to bottom, #f8f8f8, #e0e0e0);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Source Sans Pro", sans-serif;
+  background: linear-gradient(to bottom, #f8f8f8, #e0e0e0);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-    .navbar {
-      position: fixed;
-      top: 20px; /* Adjust this to move the navbar slightly down */
-      left: 0;
-      width: 100%;
-      background: var(--background);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0);
-      padding: 10px 40px; /* Adjust padding for better spacing */
-      display: flex;
-      justify-content: center; /* Center the buttons */
-      align-items: center;
-      z-index: 1000; /* Ensure the navbar stays above other content */
-    }
+.navbar {
+  position: fixed;
+  top: 20px; /* Adjust this to move the navbar slightly down */
+  left: 0;
+  width: 100%;
+  background: var(--background);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+  padding: 10px 20px; /* Adjust padding for better spacing */
+  display: flex;
+  justify-content: center; /* Center the buttons */
+  align-items: center;
+  z-index: 1000; /* Ensure the navbar stays above other content */
+  flex-wrap: wrap; /* Wrap buttons on smaller screens */
+}
 
-    .navbar button {
-      -webkit-appearance: none;
-      user-select: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      outline: none;
-      cursor: pointer;
-      width: 120px;
-      height: 40px;
-      background-image: linear-gradient(to top, var(--button-gradient));
-      border-radius: 20px;
-      border: 0.5px solid var(--button-border);
-      transition: all .2s ease;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--button-text);
-      text-shadow: 0 1px #fff;
-      margin: 0 8px; /* Reduced gap between buttons */
-    }
+.navbar button {
+  -webkit-appearance: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  cursor: pointer;
+  width: 120px;
+  height: 40px;
+  background-image: linear-gradient(to top, var(--button-gradient));
+  border-radius: 20px;
+  border: 0.5px solid var(--button-border);
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--button-text);
+  text-shadow: 0 1px #fff;
+  margin: 8px; /* Ensure consistent spacing */
+}
 
-    .navbar button:hover:not([disabled]) {
-      box-shadow: var();
-      transform: scale(0.975);
-    }
+.navbar button:hover:not([disabled]) {
+  box-shadow: var(--button-shadow-hover);
+  transform: scale(0.975);
+}
 
-    .navbar button:focus:not(:active) {
-      animation: active .9s alternate infinite;
-      outline: none;
-    }
+.navbar button:focus:not(:active) {
+  animation: active 0.9s alternate infinite;
+  outline: none;
+}
 
-    .navbar button:active:not([disabled]) {
-      transform: scale(0.95);
-    }
+.navbar button:active:not([disabled]) {
+  transform: scale(0.95);
+}
 
-    .navbar button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+.navbar button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-    .navbar button.icon {
-      width: 40px;
-    }
+.navbar button.icon {
+  width: 40px;
+}
 
-    .navbar button.icon svg {
-      margin-top: 3px;
-      width: 24px;
-      height: 24px;
-    }
+.navbar button.icon svg {
+  margin-top: 3px;
+  width: 24px;
+  height: 24px;
+}
 
-    /* Keyframes */
-    @keyframes active {
-      from {
-        box-shadow: var(--button-shadow-focus);
-      }
-      to {
-        box-shadow: var(--button-shadow-hover);
-      }
-    }
+/* Keyframes */
+@keyframes active {
+  from {
+    box-shadow: var(--button-shadow-focus);
+  }
+  to {
+    box-shadow: var(--button-shadow-hover);
+  }
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+  .navbar {
+    top: 0; /* Move the navbar to the very top for mobile */
+    padding: 8px; /* Reduce padding for smaller screens */
+    flex-direction: column; /* Stack buttons vertically */
+  }
+
+  .navbar button {
+    width: 90%; /* Make buttons take most of the screen width */
+    margin: 5px 0; /* Adjust margin for vertical stacking */
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 5px; /* Further reduce padding for very small screens */
+  }
+
+  .navbar button {
+    font-size: 12px; /* Adjust font size for readability */
+    height: 35px; /* Slightly smaller height */
+  }
+}
+
 
     body, html {
       margin: 0;
@@ -578,9 +603,64 @@
       transform: scale(1.5); /* Make the icon enlarge on hover */
     }
 
+    /* Mobile Overlay Styles */
+#mobile-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0); /* Semi-transparent background */
+    z-index: 1000; /* Ensure it's above all content */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#mobile-overlay .overlay-content {
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1s ease-in-out;
+}
+
+#mobile-overlay h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+#mobile-overlay p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
   </style>
 </head>
 <body>
+
+  <div id="mobile-overlay">
+    <div class="overlay-content">
+        <h2>For the Best Experience</h2>
+        <p>Please view this website on a desktop.</p>
+    </div>
+</div>
+
     <!-- Aurora Background -->
     <section id="home">
     <video autoplay muted loop id="background-video">
@@ -823,6 +903,22 @@ serviceCards.forEach(card => {
       families: ["Roboto:100,regular,900"]
     }
   });
+</script>
+
+<script> 
+  // Function to check if the user is on a mobile device
+function isMobileDevice() {
+    return /Mobi|Android/i.test(navigator.userAgent);
+}
+
+// Show the overlay if on mobile
+window.onload = function () {
+    if (isMobileDevice()) {
+        const overlay = document.getElementById('mobile-overlay');
+        overlay.style.display = 'flex'; // Make the overlay visible
+    }
+};
+
 </script>
 </body>
 </html>
