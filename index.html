@@ -7,6 +7,37 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:600&display=swap" rel="stylesheet">
   <style>
 
+    /* Container for sparks */
+    .cursor-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .cursor-container i {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: orange;
+      animation: animate 2s linear forwards;
+    }
+
+    @keyframes animate {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--x), var(--y));
+      }
+    }
+
 /* CSS Variables */
 :root {
   --button-gradient: #D8D9DB 0%, #fff 80%, #FDFDFD 100%;
@@ -654,12 +685,16 @@ body {
 </head>
 <body>
 
+  <div class="cursor-container" id="cursor-container"></div>
+
+
   <div id="mobile-overlay">
     <div class="overlay-content">
         <h2>For the Best Experience</h2>
         <p>Please view this website on a desktop.</p>
     </div>
 </div>
+  
 
     <!-- Aurora Background -->
     <section id="home">
@@ -834,6 +869,28 @@ body {
       
       </div>
   </div>
+   <script>
+    const cursorContainer = document.getElementById("cursor-container");
+
+    function getRandomTransitionValue() {
+      return `${Math.random() * 400 - 200}px`;
+    }
+
+    function spark(event) {
+      const i = document.createElement("i");
+      i.style.left = event.pageX + "px";
+      i.style.top = event.pageY + "px";
+      i.style.transform = `scale(${Math.random() * 2 + 1})`;
+      i.style.setProperty("--x", getRandomTransitionValue());
+      i.style.setProperty("--y", getRandomTransitionValue());
+      cursorContainer.appendChild(i);
+      setTimeout(() => {
+        i.remove();
+      }, 2000);
+    }
+
+    document.addEventListener("mousemove", spark);
+  </script>
 <script>
   // Select all buttons with the 'redirect' class
 const redirectButtons = document.querySelectorAll('.redirect');
